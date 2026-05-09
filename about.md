@@ -16,7 +16,7 @@ Outside of work I'm a builder of things.
 
 **A homelab that's gotten out of hand.** k3s on a few HP EliteDesk mini PCs and a Pi 5, GitOps via Argo CD, a MergerFS NAS built from shucked drives, Cloudflare Zero Trust tunnels, more Home Assistant automations than I should probably admit to. I've been running Ubuntu since before most people knew what Linux was — got into all of this hacking TiVo boxes back when that's how you learned what a filesystem was.
 
-**A custom mechanical keyboard.** A Dactyl Manuform — split, hand-wired, RP2040, KMK firmware, 3D-printed shell I printed myself. Took longer than it should have. Worth it.
+**A small collection of custom mechanical keyboards.** Daily driver is a wireless Sofle (ZMK). I also have a wireless Corne (ZMK) and a tented Silakka54. The deepest build is a Dactyl Manuform — split, hand-wired, RP2040, 3D-printed shell I printed myself; firmware is currently being moved from KMK (Python) to Vial-QMK. Took longer than it should have. Worth it.
 
 ## What I'm into
 

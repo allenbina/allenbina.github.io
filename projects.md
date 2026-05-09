@@ -21,12 +21,24 @@ A short list of things I build outside work. The headline ones are open source; 
 </article>
 
 <article class="project">
-  <h3>dactyl manuform <span class="tag">hardware · 2025</span></h3>
-  <p>Custom split mechanical keyboard. Hand-wired by me from raw switches and an RP2040 microcontroller, 3D-printed shell I printed on my own printer, KMK firmware. Daily driver.</p>
-  <p>The build log lives in the repo. There were a lot of iterations.</p>
-  <p class="links">
-    <a href="https://github.com/allenbina/dactyl_manuform">repo &amp; build log</a>
-  </p>
+  <h3>keyboards <span class="tag">hardware · ongoing</span></h3>
+  <p>I build a lot of split / ergo keyboards. Daily driver right now is the wireless Sofle. The Dactyl Manuform is the deepest build of the bunch — hand-wired from raw switches.</p>
+
+  <h4 style="margin: 1rem 0 0.3rem; font-size: 0.95rem;">Wireless Sofle (ZMK) — daily driver</h4>
+  <p>Wireless split, ZMK firmware. Configured for daily-driver ergonomics. The repo is a fork of the upstream Sofle ZMK design with my keymap on top.</p>
+  <p class="links"><a href="https://github.com/allenbina/sofle-j-keyboard-zmk">repo</a></p>
+
+  <h4 style="margin: 1rem 0 0.3rem; font-size: 0.95rem;">Custom Dactyl Manuform</h4>
+  <p>Hand-wired from raw switches and an RP2040 microcontroller, 3D-printed shell I printed on my own Ender 3. Currently moving the firmware from KMK (Python) to Vial-QMK. There's a full build log with photos in the repo.</p>
+  <p class="links"><a href="https://github.com/allenbina/dactyl_manuform">repo &amp; build log</a></p>
+
+  <h4 style="margin: 1rem 0 0.3rem; font-size: 0.95rem;">Wireless Corne (ZMK)</h4>
+  <p>Smaller wireless split, ZMK firmware. Travel companion to the Sofle.</p>
+  <p class="links"><a href="https://github.com/allenbina/corne-j-keyboard-zmk">repo</a></p>
+
+  <h4 style="margin: 1rem 0 0.3rem; font-size: 0.95rem;">Silakka54 — tented</h4>
+  <p>Tented split, my keymap and tweaks on top of the Silakka54 design.</p>
+  <p class="links"><em style="color: var(--fg-faint); font-size: 0.85rem;">silakka54-keymap repo — currently private</em></p>
 </article>
 
 <article class="project">
