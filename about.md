@@ -51,5 +51,6 @@ For a longer-form bio (the kind a journalist might want to use), see the [press 
 - LinkedIn: [/in/allenbina](https://www.linkedin.com/in/allenbina)
 - GitHub: [@allenbina](https://github.com/allenbina)
 - chatwire Discord: [dsc.gg/chatwire](https://dsc.gg/chatwire)
+- Sponsor my open-source work: [github.com/sponsors/allenbina](https://github.com/sponsors/allenbina)
 
 I'm available for podcasts, interviews, and live demos.

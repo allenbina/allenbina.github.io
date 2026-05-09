@@ -14,6 +14,7 @@ Working on a story about [chatwire](https://github.com/allenbina/chatwire) or wa
 - **Email:** `allenfrijole+chatwire@gmail.com`
 - **Discord:** [dsc.gg/chatwire](https://dsc.gg/chatwire)
 - **GitHub Issues:** [github.com/allenbina/chatwire/issues](https://github.com/allenbina/chatwire/issues)
+- **Sponsor:** [github.com/sponsors/allenbina](https://github.com/sponsors/allenbina)
 
 Available for: interviews, podcasts, live demos.
 
