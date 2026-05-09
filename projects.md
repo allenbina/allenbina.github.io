@@ -43,8 +43,16 @@ A short list of things I build outside work. The headline ones are open source; 
 
 <article class="project">
   <h3>homelab <span class="tag">infrastructure · ongoing</span></h3>
-  <p>k3s Kubernetes cluster across HP EliteDesk mini PCs and a Pi 5. GitOps via Argo CD. MergerFS NAS built from shucked drives. Cloudflare Zero Trust tunnels for external access. Home Assistant wired into more sensors and automations than I care to count.</p>
-  <p>Notable services I run: Plex / Sonarr / Radarr stack, Vaultwarden, Immich for photos, Uptime Kuma (with a separate watchdog Kuma watching it), Authentik, ntfy, and a Kestra automation engine that handles infrastructure alerts.</p>
+  <p>k3s Kubernetes cluster across HP EliteDesk mini PCs, GitOps via Argo CD, MergerFS NAS built from shucked drives, Cloudflare Zero Trust tunnels for external access, and a Home Assistant setup wired into more sensors and automations than I care to count.</p>
+  <p>Notable services: Plex / Sonarr / Radarr stack, Vaultwarden, Immich for photos, Uptime Kuma (with a separate watchdog Kuma watching it), Authentik, ntfy, and a Kestra automation engine that handles infrastructure alerts.</p>
+  <p>And a small fleet of Raspberry Pis:</p>
+  <ul>
+    <li><strong>Pi 5</strong> — quorum helper for the k3s cluster</li>
+    <li><strong>Pi (OctoPrint)</strong> — full-time print server for the 3D printer</li>
+    <li><strong>Pi 3 (OSMC, remote)</strong> — at a friend's house, reachable over Tailscale back to the homelab</li>
+    <li><strong>Pi 3 (idle)</strong> — collecting dust, awaiting the next project</li>
+    <li><strong>Pi Zero</strong> — no real job. It's just cute.</li>
+  </ul>
   <p class="links">
     <em style="color: var(--fg-faint); font-size: 0.85rem;">private repo for now — happy to walk through it on request</em>
   </p>
