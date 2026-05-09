@@ -12,7 +12,7 @@ Outside of work I'm a builder of things.
 
 ## What I make outside work
 
-**[chatwire](https://github.com/allenbina/chatwire).** The biggest current project. A self-hosted iMessage bridge for macOS, built solo with Claude as a pair programmer on a $100/month subscription. MIT-licensed. The fact that one person can ship a real piece of macOS infrastructure software for the cost of a Claude Pro plan is, I think, kind of an interesting data point.
+**[chatwire](https://github.com/allenbina/chatwire).** The biggest current project. A self-hosted iMessage bridge for macOS, built solo with Claude as a pair programmer on a $100/month Claude Max plan. MIT-licensed. The fact that one person can ship a real piece of macOS infrastructure software for the cost of a Claude Max subscription is, I think, kind of an interesting data point.
 
 **A homelab that's gotten out of hand.** k3s on a few HP EliteDesk mini PCs and a Pi 5, GitOps via Argo CD, a MergerFS NAS built from shucked drives, Cloudflare Zero Trust tunnels, more Home Assistant automations than I should probably admit to. I've been running Ubuntu since before most people knew what Linux was — got into all of this hacking TiVo boxes back when that's how you learned what a filesystem was.
 

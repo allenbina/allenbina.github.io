@@ -30,7 +30,7 @@ Outside of work, Allen runs a homelab that most people would describe as excessi
 
 When chatwire came out of that background, the origin story was straightforward: Allen wanted to read his iMessages from anywhere, without installing a dedicated phone app, without routing through a third-party relay server, and without running a GUI application on his Mac. He knew exactly what he wanted. He used Claude — Anthropic's AI — as a collaborative development partner, and over 201 commits built a production-ready iMessage bridge that he runs himself, every day, on real hardware.
 
-The total investment: a $100/month Claude Pro subscription. No funding. No co-founder. No crunch. The project is MIT-licensed and open to contributors.
+The total investment: a $100/month Claude Max subscription. No funding. No co-founder. No crunch. The project is MIT-licensed and open to contributors.
 
 ## Key facts
 
@@ -41,7 +41,7 @@ The total investment: a $100/month Claude Pro subscription. No funding. No co-fo
 | Project | [chatwire](https://github.com/allenbina/chatwire) |
 | What it is | self-hosted iMessage bridge for macOS — web UI, Telegram relay, plugin system |
 | License | MIT |
-| Built with | Claude (Anthropic), $100/month Claude Pro plan, one developer, 201 commits |
+| Built with | Claude (Anthropic), $100/month Claude Max plan, one developer, 201 commits |
 | Status | v1.1.0, beta, actively used in production by the author |
 | Background | 20 years data/platform engineering · homelab enthusiast · keyboard builder · 3D printing · DJ |
 
