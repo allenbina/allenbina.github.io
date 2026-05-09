@@ -1,0 +1,22 @@
+title: Allen Bina
+description: Data &amp; platform engineer. Builder of keyboards, bridges, and homelab nonsense. Author of chatwire.
+url: https://allenbina.github.io
+baseurl: ""
+
+author:
+  name: Allen Bina
+  email: allenfrijole+chatwire@gmail.com
+
+# we serve our own minimal theme — disable plugin lookups
+theme:
+plugins: []
+markdown: kramdown
+permalink: pretty
+
+# build hygiene
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - node_modules/

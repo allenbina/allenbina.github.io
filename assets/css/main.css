@@ -1,0 +1,218 @@
+/* ── allenbina.github.io — minimal personal site ── */
+
+:root {
+  --bg: #faf8f4;
+  --bg-card: #ffffff;
+  --fg: #1f1d1a;
+  --fg-soft: #4a4640;
+  --fg-faint: #8a847b;
+  --line: #e9e3d8;
+  --accent: #b8722a;       /* warm clay */
+  --accent-soft: #f3ead9;
+  --link: #1a4d80;         /* muted blue */
+  --link-hover: #b8722a;
+  --code-bg: #f1ebde;
+  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1816;
+    --bg-card: #232120;
+    --fg: #e8e2d6;
+    --fg-soft: #c0b9aa;
+    --fg-faint: #847f74;
+    --line: #2f2c28;
+    --accent: #d68f4a;
+    --accent-soft: #2c2620;
+    --link: #7eb5e4;
+    --link-hover: #d68f4a;
+    --code-bg: #2a2724;
+    --shadow: 0 1px 2px rgba(0,0,0,.2), 0 4px 12px rgba(0,0,0,.25);
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.65;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  width: 100%;
+}
+
+a { color: var(--link); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .15s, color .15s; }
+a:hover { color: var(--link-hover); border-bottom-color: var(--link-hover); }
+
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; color: var(--fg); }
+h1 { font-size: 2.25rem; margin: 0 0 0.5rem; }
+h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--line); }
+h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; }
+
+p { margin: 0 0 1rem; color: var(--fg-soft); }
+p strong, h1 strong, h2 strong, h3 strong { color: var(--fg); }
+
+ul, ol { margin: 0 0 1rem 1.25rem; color: var(--fg-soft); }
+ul li, ol li { margin: 0.25rem 0; }
+
+code {
+  background: var(--code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  color: var(--fg);
+}
+pre {
+  background: var(--code-bg);
+  padding: 0.8rem 1rem;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin: 0 0 1rem;
+}
+pre code { background: transparent; padding: 0; }
+
+blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 0.25rem 0 0.25rem 1rem;
+  margin: 0 0 1rem;
+  color: var(--fg-soft);
+  font-style: italic;
+}
+
+hr { border: none; border-top: 1px solid var(--line); margin: 2.5rem 0; }
+
+/* ── header / nav ── */
+.site-header {
+  border-bottom: 1px solid var(--line);
+  padding: 1rem 0;
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.brand {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--fg) !important;
+  letter-spacing: -0.02em;
+  border-bottom: none !important;
+}
+.brand:before { content: "› "; color: var(--accent); }
+.site-header nav { display: flex; gap: 1.25rem; }
+.site-header nav a { color: var(--fg-soft); font-size: 0.9rem; }
+.site-header nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ── main ── */
+main.wrap { padding-top: 2.5rem; padding-bottom: 4rem; flex: 1; }
+
+/* ── home page hero ── */
+.hero {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.hero img.headshot {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--code-bg);
+  border: 2px solid var(--line);
+  flex-shrink: 0;
+}
+.hero .copy { flex: 1; min-width: 220px; }
+.hero h1 { margin-bottom: 0.4rem; }
+.hero .role { color: var(--fg-faint); font-size: 0.95rem; margin-bottom: 0.8rem; }
+.hero .lead { font-size: 1.05rem; color: var(--fg-soft); }
+
+/* ── socials row ── */
+.socials { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; margin: 1rem 0; }
+.socials a { color: var(--fg-soft); font-size: 0.9rem; }
+
+/* ── project cards ── */
+.project {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin: 0 0 1.25rem;
+  box-shadow: var(--shadow);
+}
+.project.featured { border-color: var(--accent); border-width: 1px; box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 20px rgba(184, 114, 42, 0.08); }
+.project h3 { margin-top: 0; display: flex; align-items: baseline; gap: 0.6rem; }
+.project h3 .tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+}
+.project p:last-child { margin-bottom: 0; }
+.project .links { margin-top: 0.6rem; font-size: 0.9rem; color: var(--fg-faint); }
+.project .links a { margin-right: 0.9rem; }
+
+/* ── inline pill list ── */
+.pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.75rem 0 1.5rem; padding: 0; }
+.pills li {
+  list-style: none;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  margin: 0;
+}
+
+/* ── tables (used on press page) ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.5rem;
+  font-size: 0.9rem;
+}
+th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--line); }
+th { color: var(--fg-faint); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* ── site footer ── */
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 1.5rem 0 2rem;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+}
+.site-footer .socials { margin: 0 0 0.5rem; }
+.site-footer .fineprint { color: var(--fg-faint); font-size: 0.8rem; margin: 0; }
+.site-footer a { color: var(--fg-faint); border-bottom: none; }
+.site-footer a:hover { color: var(--accent); }
+
+/* ── responsive ── */
+@media (max-width: 480px) {
+  h1 { font-size: 1.85rem; }
+  h2 { font-size: 1.2rem; }
+  .site-header .wrap { flex-direction: column; align-items: flex-start; }
+  .site-header nav { gap: 0.9rem; }
+  .hero { flex-direction: column; text-align: left; align-items: flex-start; gap: 1rem; }
+  .hero img.headshot { width: 90px; height: 90px; }
+}
