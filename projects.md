@@ -28,6 +28,9 @@ A short list of things I build outside work. The headline ones are open source; 
   <p>Wireless split, ZMK firmware. Configured for daily-driver ergonomics. The repo is a fork of the upstream Sofle ZMK design with my keymap on top.</p>
   <p class="links"><a href="https://github.com/allenbina/sofle-j-keyboard-zmk">repo</a></p>
 
+  <h4 style="margin: 1rem 0 0.3rem; font-size: 0.95rem;">Sofle Eyelash (wireless, store-bought)</h4>
+  <p>I started building a Sofle Eyelash from scratch and ended up giving up and buying a pre-built one. Worth the $80 and worth the lesson — sometimes the right move is to skip the bench-time and use the keyboard.</p>
+
   <h4 style="margin: 1rem 0 0.3rem; font-size: 0.95rem;">Custom Dactyl Manuform</h4>
   <p>Hand-wired from raw switches and an RP2040 microcontroller, 3D-printed shell I printed on my own Ender 3. Currently moving the firmware from KMK (Python) to Vial-QMK. There's a full build log with photos in the repo.</p>
   <p class="links"><a href="https://github.com/allenbina/dactyl_manuform">repo &amp; build log</a></p>
