@@ -1,0 +1,183 @@
+---
+/**
+ * About page — Allen Bina
+ */
+import PageLayout from '@/layouts/PageLayout.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+import { Hero } from '@/components/hero';
+---
+<PageLayout
+  title="About — Allen Bina"
+  description="Data platform engineer, maker, DJ. I've been building things with computers since I was 11."
+>
+  <Hero layout="centered" size="sm">
+    <Badge slot="badge" variant="brand" pill>
+      <Icon name="user" size="sm" />
+      About me
+    </Badge>
+    <h1 slot="title">
+      <span class="text-foreground [-webkit-text-fill-color:currentColor]">Allen Bina</span>
+    </h1>
+    <p slot="description">
+      Builder. Data engineer. Serial project-starter.
+    </p>
+  </Hero>
+
+  <!-- Bio -->
+  <section class="py-12 bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-3xl px-6 flex flex-col gap-6" data-reveal="right" data-reveal-ease="smooth">
+      <Badge variant="brand" pill class="self-start">The story</Badge>
+
+      <p class="text-lg text-foreground-muted leading-relaxed">
+        I've been building things with computers since I was 11 years old, when I brute-forced the copy protection key
+        for Prince of Persia 2 on a 386 because I didn't know you could just buy the game. Twenty-something years later,
+        not much has changed — I still solve problems by taking things apart and figuring out how they work.
+      </p>
+
+      <p class="text-lg text-foreground-muted leading-relaxed">
+        By day, I'm a data platform engineer — Informatica, Databricks, ETL pipelines, the infrastructure that moves
+        data from point A to point B at scale. I've been doing this for almost 20 years across consulting, healthcare,
+        and financial services.
+      </p>
+
+      <p class="text-lg text-foreground-muted leading-relaxed">
+        But the work I'm most proud of happens after hours. I built a custom thermostat from scratch — soldering,
+        firmware, MQTT, wired into Home Assistant. I hand-wired a split ergonomic keyboard, chose a bleeding-edge
+        Python firmware (KMK), hit its limits, learned why C++ wins in embedded, and migrated to QMK. I run a
+        Kubernetes cluster at home with 30+ services that started as a media PC when I was 23 and grew into what
+        it is today through every phase of self-hosting.
+      </p>
+
+      <p class="text-lg text-foreground-muted leading-relaxed">
+        My latest project is <a href="https://github.com/allenbina/chatwire" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 decoration-teal-500 hover:text-teal-400 transition-colors">chatwire</a> — an open-source iMessage bridge that lets you access your messages from any device.
+        Full React UI, plugin system, mobile app, MCP integration for AI agents. It started as a personal tool
+        and turned into a real product.
+      </p>
+
+      <p class="text-lg text-foreground-muted leading-relaxed">
+        I've also been a DJ for 17+ years. I mod my own flight cases and carry an emergency repair kit to every gig.
+        Same instinct as the keyboard and the thermostat — if something doesn't work the way I want, I fix it myself.
+      </p>
+
+      <blockquote class="pl-4 border-l-2 border-teal-500/40 text-foreground-muted italic leading-relaxed">
+        "I used to read Hacker News and Hackaday articles in awe. Now I build the things I used to admire.
+        Currently learning PCB design for a custom keyboard."
+      </blockquote>
+
+      <p class="text-foreground-muted leading-relaxed">
+        Outside of computers: I organize a wine club (and don't drink wine), and I have a dog named Ziba
+        (<a href="https://www.instagram.com/zibabina/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 decoration-teal-500 hover:text-teal-400 transition-colors">@zibabina</a>).
+        Always happy to talk about self-hosting, mechanical keyboards, home automation, or anything you can solder.
+      </p>
+    </div>
+  </section>
+
+  <!-- Quick facts -->
+  <section class="py-12 bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-8 text-center flex flex-col items-center gap-4" data-reveal>
+        <Badge variant="brand" pill>Quick facts</Badge>
+        <h2 class="font-display text-3xl font-bold text-foreground">By the numbers</h2>
+      </div>
+      <div class="grid gap-4 md:grid-cols-4">
+        <Card hover data-reveal>
+          <div class="flex flex-col items-center text-center gap-2 py-2">
+            <Icon name="history" class="w-8 h-8 text-teal-400" />
+            <p class="text-2xl font-bold text-foreground">~20</p>
+            <p class="text-sm text-foreground-muted">Years in data engineering</p>
+          </div>
+        </Card>
+        <Card hover data-reveal data-reveal-delay="1">
+          <div class="flex flex-col items-center text-center gap-2 py-2">
+            <Icon name="server" class="w-8 h-8 text-teal-400" />
+            <p class="text-2xl font-bold text-foreground">30+</p>
+            <p class="text-sm text-foreground-muted">Services in k3s cluster</p>
+          </div>
+        </Card>
+        <Card hover data-reveal data-reveal-delay="2">
+          <div class="flex flex-col items-center text-center gap-2 py-2">
+            <Icon name="music" class="w-8 h-8 text-teal-400" />
+            <p class="text-2xl font-bold text-foreground">17+</p>
+            <p class="text-sm text-foreground-muted">Years DJing</p>
+          </div>
+        </Card>
+        <Card hover data-reveal data-reveal-delay="3">
+          <div class="flex flex-col items-center text-center gap-2 py-2">
+            <Icon name="code" class="w-8 h-8 text-teal-400" />
+            <p class="text-2xl font-bold text-foreground">11</p>
+            <p class="text-sm text-foreground-muted">Age when it started</p>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="py-12 bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-8 flex flex-col gap-4" data-reveal>
+        <Badge variant="brand" pill class="self-start">Timeline</Badge>
+        <h2 class="font-display text-3xl font-bold text-foreground">How I got here</h2>
+      </div>
+
+      <div class="relative">
+        <div class="absolute left-3 top-2 bottom-2 w-px bg-border hidden sm:block" aria-hidden="true"></div>
+
+        <div class="flex flex-col gap-8">
+          {[
+            { year: '~2006', title: 'First HTPC', desc: 'Media playback on the TV. An Atom nettop, eventually PHP and MySQL for a home dashboard. The homelab begins.' },
+            { year: '~2012', title: 'Home server', desc: 'SSH tunnels for remote access. MySQL backing custom web apps. Self-hosting before it had a name.' },
+            { year: '~2018', title: 'Electronics addiction', desc: 'Elegoo kit → Arduino → NodeMCU. Built a custom thermostat from scratch. Got deep into ESP power optimization for battery projects.' },
+            { year: '~2022', title: '3D printer → keyboard', desc: 'Dactyl Manuform: printed shell, hand-wired matrix. KMK firmware in Python, then migrated to QMK in C++ when I hit its limits.' },
+            { year: '2024+', title: 'k3s cluster + chatwire', desc: '30+ services on Kubernetes with ArgoCD, Velero backups, and Cloudflare tunnels. chatwire ships as a real product.' },
+          ].map((item, i) => (
+            <div class="flex gap-4 sm:gap-6 items-start" data-reveal data-reveal-delay={String(i)}>
+              <div class="relative z-10 w-7 h-7 rounded-full border-2 border-teal-500/40 bg-background-secondary flex items-center justify-center shrink-0 mt-0.5 hidden sm:flex">
+                <div class="w-2 h-2 rounded-full bg-teal-500/60"></div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-baseline gap-3 mb-1">
+                  <span class="text-xs font-mono text-teal-400/70 shrink-0">{item.year}</span>
+                  <h3 class="text-sm font-semibold text-foreground">{item.title}</h3>
+                </div>
+                <p class="text-sm text-foreground-muted leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <blockquote class="mt-8 pl-4 border-l-2 border-teal-500/40 text-foreground-muted italic text-sm leading-relaxed" data-reveal>
+        "I used to read Hacker News and Hackaday articles in awe. Now I build the things I used to admire."
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Connect -->
+  <section class="py-12 bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 text-center" data-reveal>
+      <Badge variant="brand" pill class="mb-6">Connect</Badge>
+      <h2 class="font-display text-3xl font-bold text-foreground mb-4">Let's talk</h2>
+      <p class="text-lg text-foreground-muted mb-8 max-w-xl mx-auto">
+        Happy to talk about self-hosting, mechanical keyboards, home automation, data engineering, or anything you can solder.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <Button variant="outline" href="https://github.com/allenbina" target="_blank" rel="noopener noreferrer">
+          <Icon name="github" size="sm" />
+          GitHub
+        </Button>
+        <Button variant="outline" href="https://www.linkedin.com/in/allenbina/" target="_blank" rel="noopener noreferrer">
+          <Icon name="linkedin" size="sm" />
+          LinkedIn
+        </Button>
+        <Button variant="outline" href="https://www.instagram.com/zibabina/" target="_blank" rel="noopener noreferrer">
+          <Icon name="instagram" size="sm" />
+          @zibabina
+        </Button>
+      </div>
+    </div>
+  </section>
+</PageLayout>

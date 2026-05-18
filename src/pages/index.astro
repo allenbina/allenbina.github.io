@@ -1,0 +1,171 @@
+---
+import LandingLayout from '@/layouts/LandingLayout.astro';
+import { Hero } from '@/components/hero';
+import Button from '@/components/ui/form/Button/Button.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import { getCollection } from 'astro:content';
+
+const projectItems = await getCollection('projects');
+const featuredProjects = projectItems
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 5);
+
+const timelineItems = [
+  { year: '~2006', title: 'First HTPC', desc: 'Media playback on TV. The beginning.' },
+  { year: '~2012', title: 'Home server', desc: 'Atom nettop, PHP, MySQL, SSH tunnels for remote access.' },
+  { year: '~2018', title: 'Electronics', desc: 'Elegoo kit → Arduino → NodeMCU → custom thermostat → ESP power optimization.' },
+  { year: '~2022', title: '3D printer → keyboard', desc: 'Dactyl Manuform, hand-wired. KMK in Python, then QMK in C++.' },
+  { year: '2024+', title: 'k3s + chatwire', desc: '30+ services on Kubernetes. chatwire ships as a real product.' },
+];
+---
+
+<LandingLayout
+  title="Allen Bina — Builder"
+  description="I build things. Sometimes with code, sometimes with a soldering iron, sometimes with a 3D printer."
+  includePersonSchema={true}
+>
+  <!-- chatwire corner badge -->
+  <div class="fixed top-20 right-4 z-40 hidden lg:block" aria-label="chatwire announcement">
+    <a
+      href="https://github.com/allenbina/chatwire"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-950/70 px-3 py-1.5 text-xs font-medium text-teal-300/80 shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-teal-500/50 hover:text-teal-200"
+    >
+      <span class="h-1.5 w-1.5 rounded-full bg-teal-400/70 group-hover:bg-teal-300"></span>
+      chatwire RC1 is live
+      <Icon name="arrow-right" size="sm" class="opacity-60 group-hover:opacity-90" />
+    </a>
+  </div>
+
+  <!-- Hero — compact -->
+  <Hero layout="centered" size="sm" showGlow>
+    <h1 slot="title" class="!text-4xl sm:!text-5xl md:!text-6xl">
+      Allen Bina
+    </h1>
+
+    <Fragment slot="description">
+      <p class="text-lg text-foreground-muted leading-relaxed">
+        I build things. Sometimes with code, sometimes with a soldering iron, sometimes with a 3D printer.
+      </p>
+      <p class="mt-2 text-base text-foreground-muted/70 leading-relaxed">
+        Data platform engineer by day. Maker, DJ, and serial project-starter by night.
+      </p>
+    </Fragment>
+
+    <Fragment slot="actions">
+      <Button size="md" href="/projects">
+        Projects
+        <Icon name="arrow-right" size="sm" />
+      </Button>
+      <Button size="md" variant="outline" href="/about">
+        About me
+      </Button>
+    </Fragment>
+  </Hero>
+
+  <!-- Projects grid -->
+  <section id="work" class="relative z-10 py-10 bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-6">
+      <div class="flex items-center justify-between" data-reveal>
+        <h2 class="font-display text-2xl md:text-3xl font-bold text-foreground">
+          Projects
+        </h2>
+        <Button variant="ghost" size="sm" href="/projects">
+          All projects
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
+
+      <!-- 5-column compact grid on lg, 3+2 on md, 1 col on mobile -->
+      <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5" data-reveal>
+        {featuredProjects.map((project) => (
+          <Card
+            variant="elevated"
+            hover
+            padding="none"
+            href={project.data.placeholder ? undefined : `/projects/${project.id.replace(/\.mdx?$/, '')}`}
+            class="group overflow-hidden flex flex-col"
+          >
+            <div class="flex flex-1 flex-col p-4">
+              <div class="mb-2 w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500/20 to-teal-500/5 flex items-center justify-center text-teal-400 shrink-0">
+                <Icon name="layers" size="sm" />
+              </div>
+              <div class="mb-1 flex items-baseline gap-2">
+                <h3 class="font-display text-sm font-bold text-foreground leading-tight">{project.data.title}</h3>
+                {project.data.year && (
+                  <span class="text-xs text-foreground-muted shrink-0">{project.data.year}</span>
+                )}
+              </div>
+              <p class="text-xs text-foreground-muted leading-relaxed mb-3 flex-1">{project.data.description}</p>
+              {project.data.meta && project.data.meta.length > 0 && (
+                <div class="flex flex-wrap gap-1 mt-auto">
+                  {project.data.meta.slice(0, 2).map((item) => (
+                    <span class="text-xs px-1.5 py-0.5 rounded bg-teal-500/10 text-teal-300/80 border border-teal-500/15">{item}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="relative z-10 py-12 bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="flex flex-col gap-6" data-reveal>
+        <h2 class="font-display text-2xl md:text-3xl font-bold text-foreground">How I got here</h2>
+
+        <div class="relative">
+          <!-- Vertical line -->
+          <div class="absolute left-3 top-2 bottom-2 w-px bg-border hidden sm:block" aria-hidden="true"></div>
+
+          <div class="flex flex-col gap-6">
+            {timelineItems.map((item, i) => (
+              <div class="flex gap-4 sm:gap-6 items-start" data-reveal data-reveal-delay={String(i)}>
+                <!-- Dot -->
+                <div class="relative z-10 w-7 h-7 rounded-full border-2 border-teal-500/40 bg-background-secondary flex items-center justify-center shrink-0 mt-0.5 hidden sm:flex">
+                  <div class="w-2 h-2 rounded-full bg-teal-500/60"></div>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-baseline gap-3 mb-1">
+                    <span class="text-xs font-mono text-teal-400/70 shrink-0">{item.year}</span>
+                    <h3 class="text-sm font-semibold text-foreground">{item.title}</h3>
+                  </div>
+                  <p class="text-sm text-foreground-muted leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <blockquote class="mt-4 pl-4 border-l-2 border-teal-500/40 text-foreground-muted italic text-sm leading-relaxed" data-reveal>
+          "I used to read Hacker News and Hackaday articles in awe. Now I build the things I used to admire."
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- About teaser -->
+  <section class="relative z-10 py-10 bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6" data-reveal>
+        <div class="flex flex-col gap-2 max-w-xl">
+          <Badge variant="brand" pill class="self-start">About me</Badge>
+          <p class="text-foreground-muted leading-relaxed">
+            Data platform engineer (Informatica, Databricks) by day. Self-hoster, maker, and DJ by night.
+            20 years of career, 20 years of homelab. Always learning.
+          </p>
+        </div>
+        <Button variant="outline" href="/about" class="shrink-0">
+          More about me
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
+    </div>
+  </section>
+</LandingLayout>

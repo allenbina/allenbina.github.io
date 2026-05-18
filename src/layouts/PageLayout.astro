@@ -1,0 +1,61 @@
+---
+/**
+ * PageLayout
+ * Layout wrapper for standard content pages (non-landing)
+ * Uses Header + Footer with content page configuration
+ */
+import BaseLayout from './BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  showScrollProgress?: boolean;
+  eagerReveal?: boolean;
+}
+
+const { title, description, image, imageAlt, noindex, nofollow, showScrollProgress = false, eagerReveal = false } = Astro.props;
+
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  imageAlt={imageAlt}
+  noindex={noindex}
+  nofollow={nofollow}
+  eagerReveal={eagerReveal}
+>
+  <Header
+    slot="header"
+    position="fixed"
+    shape="bar"
+    variant="solid"
+    size="lg"
+    showActiveState
+    showCta={false}
+    showScrollProgress={showScrollProgress}
+  />
+
+  <main class="min-h-screen pt-16">
+    <slot />
+  </main>
+
+  <Footer
+    slot="footer"
+    layout="simple"
+    showSocial={true}
+    socialLinks={[
+      { platform: 'github', href: 'https://github.com/allenbina', label: 'GitHub' },
+      { platform: 'linkedin', href: 'https://www.linkedin.com/in/allenbina/', label: 'LinkedIn' },
+      { platform: 'instagram', href: 'https://www.instagram.com/zibabina/', label: '@zibabina' },
+    ]}
+    copyright="© {year} {siteName}. Built with <a href='https://astro.build' class='underline hover:text-foreground transition-colors' target='_blank' rel='noopener noreferrer'>Astro</a> + <a href='https://github.com/hansmartensdev/Astro-Rocket' class='underline hover:text-foreground transition-colors' target='_blank' rel='noopener noreferrer'>Astro Rocket</a>."
+  />
+</BaseLayout>
