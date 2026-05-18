@@ -1,0 +1,24 @@
+---
+title: "Getting an ESP-01 Down to 3 Picoamps"
+description: "Deep sleep hacks, reed switches, and the realization that making something last forever on a battery also makes it useless."
+publishedAt: 2026-05-18
+author: "Allen Bina"
+tags: ["esp8266", "low-power", "electronics", "sensors"]
+draft: true
+featured: false
+locale: en
+---
+
+A lot of my sensor projects were small doodads that ran every 15 minutes — check temperature, check humidity, check light levels. Some, like the IR receiver, were more power hungry. But the little ESP-01 sensors were meant to be set-and-forget, running on batteries.
+
+The ESP-01 has a deep sleep mode on the chip, but it's not enabled or wired in by default. The GPIO pin that triggers the wake-up isn't connected to the reset pin on the board. So I kept trying to hack it — bodge wires, trace cuts, different resistor configurations. And I did get it working. Repeatedly.
+
+Ultimately I got it down to about 3 picoamps in deep sleep. At that draw, a single cell battery could theoretically run it for years. Which sounds great until you realize: a device that's asleep 99.999% of the time is basically useless for anything interactive.
+
+So I pivoted to reed switches. A reed switch is a tiny magnetic switch — when a magnet moves near it, it closes the circuit. I wired reed switches to the wake-up pin so physical events would trigger the ESP-01: a door opens, a chair moves, a window opens. The magnet breaks the switch, the ESP wakes up, does its thing (sends an MQTT message, hits a webhook, whatever), and goes back to deep sleep.
+
+I was originally programming them by wiring them up with dupont wires to an Arduino Uno clone. It was a mess of jumper wires every time. Eventually I built a small hat — a programming jig that the ESP-01 just slots into. Made the iteration cycle way faster.
+
+Honestly, it was more fun and challenging than anything useful. But I learned a ton about power management, sleep modes, and how to make microcontrollers do as little as possible for as long as possible.
+
+{/* TODO: add photos from Immich — lowpower_esp01 folder */}

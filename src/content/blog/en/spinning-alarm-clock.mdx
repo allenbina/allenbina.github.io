@@ -1,0 +1,22 @@
+---
+title: "The Spinning Alarm Clock"
+description: "My ex hated the bright alarm clock at night. So I automated a jewelry display spinner with a NodeMCU and Home Assistant."
+publishedAt: 2026-05-18
+author: "Allen Bina"
+tags: ["home-assistant", "nodemcu", "automation", "esp8266"]
+draft: true
+featured: false
+locale: en
+---
+
+My ex loved this alarm clock but it was way too bright at night. Every single night she would make me get up and put a small sheet over it. Every. Night.
+
+So I asked her what the solution could be. She turned down a small piece of cardboard that flaps up — too ugly. But she liked the idea of it automatically turning to face the wall at night.
+
+I found one of those spinning platforms made for displaying jewelry, and that became the base. I reverse engineered the buttons and motor control, then shoved a NodeMCU inside it. Wired the whole thing up to Home Assistant so we could manually spin it any amount — 90 degrees, 180, whatever — from our phones.
+
+Then I set up automations: at 8:45 PM it rotates to face the wall. At 6:00 AM it spins back. Problem solved. No more getting out of bed.
+
+The best part was reverse engineering the display's control board. The buttons were just pulling GPIO pins low, so I tapped into those traces and let the NodeMCU trigger them programmatically. The motor had enough torque to stop at precise angles, which I honestly didn't expect from a $15 jewelry spinner.
+
+{/* TODO: add photos from Immich — spinning_table folder */}

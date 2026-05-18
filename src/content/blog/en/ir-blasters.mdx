@@ -1,0 +1,22 @@
+---
+title: "IR Blasters Everywhere"
+description: "I went deep on infrared — making my TV smart, controlling the bedroom AC, and using a TV remote to trigger Home Assistant automations."
+publishedAt: 2026-05-18
+author: "Allen Bina"
+tags: ["ir", "home-assistant", "esp8266", "automation"]
+draft: true
+featured: false
+locale: en
+---
+
+I was knee deep in IR blasters for a while.
+
+It started simple — I wanted to make my TV smart. Send power on, change inputs, adjust volume, all from Home Assistant. I built a transmitter with an ESP8266 and an IR LED, pointed it at the TV, and cloned the remote codes.
+
+But then I realized I could also control the AC in the bedroom. Same principle — capture the remote codes, replay them from an ESP. The AC remotes are more complex than TV remotes (they send the entire state — temp, mode, fan speed — in every burst), but once you decode the protocol it's straightforward.
+
+Then it got more interesting. I started playing with IR *receive* in a separate area, so I could use the TV remote to trigger Home Assistant automations. Point the remote at a sensor, press a button, and it fires a webhook. Turn on the AC from the couch. Toggle lights. Whatever you want.
+
+I had so many different ones at one point. Different form factors, different ESP boards, different IR LED arrangements. Some with a single LED for targeted control, some with multiple LEDs for wide-angle coverage. I was building them faster than I had things to point them at.
+
+{/* TODO: add photos from Immich — ir blaster + ir blaster ac folders */}

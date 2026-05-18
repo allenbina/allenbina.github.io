@@ -1,0 +1,30 @@
+---
+title: "Adding USB-C to Two Laptops That Didn't Have It"
+description: "I was so sick of carrying dongles. So I cracked open an Acer and a Lenovo and soldered in USB-C ports with proper PD charging."
+publishedAt: 2026-05-18
+author: "Allen Bina"
+tags: ["hardware", "usb-c", "soldering", "laptop-mod"]
+draft: true
+featured: false
+locale: en
+---
+
+I was so sick of carrying dongles. Two laptops, neither with USB-C, and a bag full of adapters. So I decided to just add the ports myself.
+
+## The Acer
+
+The Acer was the easier one. There's so much empty space inside these things once you take the bottom panel off. I found a spot near the existing port cluster, drilled out a clean opening, and mounted a USB-C breakout board. Soldered the data lines to an internal USB header and wired up the power delivery circuit.
+
+## The Lenovo
+
+The Lenovo was tight. Really tight. I had to go back twice to fix it for good. The first attempt worked but the fit wasn't reliable — the port would lose connection if you bumped the cable. Second time I reinforced the mounting and redid the solder joints.
+
+## What I Learned About USB-C PD
+
+This is where it got genuinely interesting. USB-C Power Delivery doesn't just send power — the device and charger negotiate voltage and current through a handshake protocol. At the simplest level, a specific resistance value on the CC (Configuration Channel) pins tells the charger what voltage to provide. Different resistor values request different voltage levels — 5V, 9V, 15V, 20V.
+
+My first approach was taking apart one of my existing dongles to harvest the controller board. That worked, but it was messy and the boards were tiny. I found it much easier to buy fresh USB-C breakout boards and solder my own resistors inline to set the PD voltage to match each laptop's charging spec.
+
+The resistor is the handshake. No chip needed for basic PD negotiation — just the right resistance on CC1, and the charger delivers the voltage you asked for.
+
+{/* TODO: add photos from Immich — laptop usbc mods folder */}
