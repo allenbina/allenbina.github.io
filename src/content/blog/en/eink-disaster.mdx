@@ -1,0 +1,42 @@
+---
+title: "The eInk Screen That Almost Broke Me"
+description: "Weeks of HDMI protocol rabbit holes with a Pi 3, a HomeGoods frame, hot glue everywhere, and my first time coding with ChatGPT."
+publishedAt: 2026-05-18
+author: "Allen Bina"
+tags: ["eink", "raspberry-pi", "home-assistant", "chatgpt", "hardware"]
+draft: true
+featured: false
+locale: en
+---
+
+This project was a disaster. But it was a fun disaster, and I learned a ton.
+
+## The HDMI Rabbit Hole
+
+I wanted a paper-thin eInk display showing my calendar and to-do list from Home Assistant. Found a display, got a Pi 3, figured it would be straightforward. It was not.
+
+The display connected over HDMI, and the Pi 3 just would not drive it correctly. A buddy at work and I went deep — weeks deep — into HDMI protocols. Turns out it's not just pixels. There's overflow data, timing signals, bitrates, handshake protocols. The Pi 3's HDMI output couldn't match what this particular panel expected. We tried every config.txt tweak, every resolution hack, every timing override. Nothing worked reliably.
+
+Finally I gave in and got a Pi 5. Plugged it in. Worked instantly. Weeks of debugging solved by a $60 upgrade. Classic.
+
+## The Frame
+
+The eInk screen was paper thin, so I framed it in a picture frame I got from HomeGoods. Could I have done a nicer job? Absolutely. But it got the job done.
+
+I got some right-angle HDMI connectors for shorter cables, a slim power supply, and hot-glued everything to the back of the frame. It looked like a mess from behind but clean from the front. At one point I glued so much stuff back there that the display wouldn't clear anymore — even hitting the reset button did nothing. The panel was just stuck with whatever was on screen.
+
+I gave up on that display entirely.
+
+## The Amazon eInk Screen
+
+Got a different eInk screen from Amazon — a Seeed reTerminal with an e-paper display. Completely different approach: no HDMI, just a microcontroller driving the panel directly with ESPHome and Home Assistant.
+
+This is where it got interesting. I programmed the whole thing with ChatGPT. It was my first real API-assisted coding project. My workflow was: take a screenshot of what was on screen, paste it into ChatGPT, describe what was wrong, get code back, paste it into the config, flash it, see what happened.
+
+Sometimes I'd dig into the code myself looking for the specific line to change, then ask ChatGPT for the whole file again with that one fix. The feedback loop was a total nightmare — screenshot, paste, wait, copy, paste, flash, check, repeat. No IDE integration, no inline suggestions, just copy-paste ping-pong between a browser and a terminal.
+
+But it got the job done. The calendar shows up. The to-do list shows up. It refreshes on schedule. It's still running on the wall.
+
+Looking back, that painful ChatGPT workflow is exactly why tools like Claude Code exist. The screenshot-and-paste loop was the worst part of an otherwise fun project.
+
+{/* TODO: add photos from Immich — epaper_screen folder */}
