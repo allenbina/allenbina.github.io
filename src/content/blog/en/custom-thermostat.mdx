@@ -37,7 +37,7 @@ The thermostat itself was simple once all the input/output stuff worked. It's ju
 
 Then I added MQTT — from scratch, no Tasmota, no ESPHome. Wired it into Home Assistant manually. It was a pain. Got it working with a JavaScript library that rendered a Nest-style thermostat dial in the browser, and did the plumbing with a combination of Jinja templates, JavaScript, and Node-RED.
 
-It worked. But it was fragile and hard to maintain.
+Node-RED read from the MQTT topics and handled all the thermostat logic — comparing setpoint to actual temp, deciding when to fire the relay. The JavaScript Nest-style dial rendered in a separate browser window, which I then embedded into Home Assistant as an iframe. It worked. But it was fragile, hard to maintain, and Home Assistant's built-in thermostat entity was just better in every way.
 
 ## The Tasmota Rewrite
 
