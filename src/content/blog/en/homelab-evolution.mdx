@@ -1,0 +1,38 @@
+---
+title: "From Docker to Kubernetes (and Why Enterprises Pay for Managed K8s)"
+description: "A single Docker test machine became a three-node k3s cluster. Now I understand why people pay cloud providers to deal with etcd."
+publishedAt: 2026-05-18
+author: "Allen Bina"
+tags: ["homelab", "docker", "kubernetes", "k3s", "self-hosted"]
+draft: true
+featured: false
+locale: en
+---
+
+## The Docker Machine
+
+It started with a single thin client I called dockerlinux. It was my Docker test machine — the place I learned containers. Pull an image, run it, break it, figure out why, try again. Portainer, Nginx Proxy Manager, Plex, Home Assistant — all running on one little box.
+
+When Docker clicked, I migrated everything over. That machine went from "test environment" to "this runs my whole house" pretty quickly. It got renamed a few times — dockerlinux, then worklinux, then eventually thinnode1 when it joined the cluster.
+
+## The Network
+
+I set up a dedicated switch just for the server stuff. Kept it separate from the household WiFi traffic. One of my Raspberry Pis lives in a Flirc fanless case next to it — silent, clean, tucked away.
+
+## The Kubernetes Jump
+
+At some point Docker Compose wasn't enough. I wanted proper orchestration — rolling updates, health checks, automatic restarts across multiple nodes. So I installed k3s.
+
+Thinnode1 got two friends. Three nodes. Etcd for consensus. Longhorn for distributed storage. ArgoCD for GitOps. The whole stack.
+
+## Why Enterprises Pay for This
+
+And then I learned why enterprises pay a cloud provider for managed Kubernetes rather than running it themselves.
+
+Etcd loses quorum because one node had a brief I/O stall. Longhorn decides not to replicate data to a node it doesn't like. A WAL file gets corrupted and the API server panics. You restart one node and the other two can't agree on who's in charge. You add a fourth etcd member and realize you've made things worse because four gives you zero additional fault tolerance over three — you need odd numbers.
+
+I've had nodes hard-power-off because of a flaky daisy-chained power strip. I've had etcd corruption require manual recovery. I've watched a Pi 5 take down the entire cluster because its SD card couldn't keep up with etcd write load.
+
+Every one of these is a learning experience. Every one of them is also something that a managed Kubernetes service handles for you by default. I get why people pay for it now. I'm just too stubborn to stop.
+
+{/* TODO: add photos from Immich — tagged homelab photos, thinnode1, switch, flirc pi case */}
