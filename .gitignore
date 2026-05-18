@@ -52,8 +52,8 @@ public/pagefind/
 # Claude Code
 .claude/
 
-# npm lockfile (pnpm only)
-package-lock.json
+# npm lockfile — keep for GitHub Actions CI
+# package-lock.json
 
 # Internal docs
 southwell-astro-boilerplate-docs.md
