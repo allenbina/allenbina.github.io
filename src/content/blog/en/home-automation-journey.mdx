@@ -1,0 +1,44 @@
+---
+title: "Down the Smart Home Rabbit Hole"
+description: "From IR blasters to Google Home to Home Assistant — how a simple TV automation turned into a whole thing."
+publishedAt: 2026-05-18
+author: "Allen Bina"
+tags: ["homelab", "home-assistant", "smart-home", "iot"]
+draft: true
+featured: false
+locale: en
+---
+
+If you've read [the IR blasters post](/blog/en/ir-blasters), you know where this started. I wanted to turn the TV off when I walked away, and I got a little obsessed with IR. But IR has limits — it's line-of-sight, it's one-way, and you have no feedback about whether anything actually happened. At some point I started looking for more.
+
+## The Google Home Phase
+
+The first step toward an actual smart home was a Google Home puck and some WiFi smart bulbs. The lights were cool in a way I didn't expect — they used regular bulbs that fit in existing fixtures and worked with the existing wall switches. You didn't have to rewire anything or replace the switches.
+
+The catch was interesting: because the bulbs are WiFi devices, they need power to be "on." When you flip the physical wall switch off, you kill power to the bulb, and now it's just a dead bulb again — no WiFi, no app control, no nothing. So the deal you make with smart bulbs is: the wall switch stays on, and you control the lights through the app or voice instead.
+
+That worked fine most of the time. "Hey Google, turn off the lights" is genuinely more convenient than getting up. But the muscle memory of reaching for a wall switch is strong, and anyone visiting the house had no idea what was going on. Flip the switch, kill the bulb, now you're fishing in the dark to turn it back on manually. Not ideal.
+
+The other thing about Google Home was how much it relied on the Google ecosystem staying intact. If a skill broke or an integration stopped working, you'd find out when you tried to use it and nothing happened. Not a lot of visibility into what was going on under the hood.
+
+## Falling Into Home Assistant
+
+The IR automation was also causing problems around this time. I had set it up to trigger when I wasn't watching TV — send a power-off command after some idle period. But the living room and kitchen share a line of sight, and the automation was firing while I was cooking. I'd be in the middle of something and the TV would just shut off. Close, but not close enough.
+
+Fixing that kind of thing properly — presence detection, room-aware logic, conditions that actually reflect what's happening — meant I needed something more flexible than Google's ecosystem. That's how I found Home Assistant.
+
+The first week with Home Assistant was overwhelming in the good way. You could see everything. Device states, history, what automations ran and when, why something triggered or didn't. After living in Google Home where the answer to "why didn't that work" was basically "unclear," having actual logs and debuggable logic was a revelation.
+
+I moved the lights over, reworked the TV automation with proper presence detection, and started adding sensors.
+
+## Sensors Everywhere
+
+Once you have Home Assistant running, the natural next step is covering more of the house with sensors. Temperature, humidity, motion — the basics. Then I found air quality sensors, and those became their own rabbit hole.
+
+Air quality data is oddly fascinating to look at. You can see cooking spikes, sleep-hour CO2 buildup, how long it takes after opening a window for readings to drop. None of it is urgent or critical information, but once you have it, you keep looking at it. The dashboard fills up.
+
+The more sensors I added, the more I wanted to actually act on what they were reading. Which eventually led to the idea of hooking them into the HVAC system directly — not just monitoring the temperature but controlling what happens when it drifts.
+
+That's [where the thermostat project came from](/blog/en/custom-thermostat).
+
+{/* TODO: add photos from Immich — google home puck, smart bulbs, sensor dashboard */}
