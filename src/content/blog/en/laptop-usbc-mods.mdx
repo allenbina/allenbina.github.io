@@ -15,11 +15,17 @@ I was so sick of carrying dongles. Two laptops, neither with USB-C, and a bag fu
 
 The Acer was the easier one. There's so much empty space inside these things once you take the bottom panel off. I found a spot near the existing port cluster, drilled out a clean opening, and mounted a USB-C breakout board. Soldered the data lines to an internal USB header and wired up the power delivery circuit.
 
+![Laptop opened up with internal components exposed](/images/blog/laptop-usbc-mods/IMG_7924_laptop_open.jpg)
+
+![Wiring the USB-C breakout board to the internal header](/images/blog/laptop-usbc-mods/IMG_7919_wiring.jpg)
+
 ## The Lenovo
 
 The Lenovo was my daily driver for about 10 years. Most of my dev work was done on this machine — 8GB of RAM, running Kubuntu, then Pop!_OS, then Debian with GNOME. It went through three distros and a USB-C mod before I finally replaced it with a gaming laptop about six months ago. Now I work from a coworking space with orange desks and needed something with a bit more power.
 
 But back when I was modding it — it was tight inside. Really tight. I had to go back twice to fix it for good. The first attempt worked but the fit wasn't reliable — the port would lose connection if you bumped the cable. Second time I reinforced the mounting and redid the solder joints.
+
+![The finished USB-C port installed on the laptop](/images/blog/laptop-usbc-mods/IMG_7918_internal.jpg)
 
 ## What I Learned About USB-C PD
 
@@ -29,4 +35,6 @@ My first approach was taking apart one of my existing dongles to harvest the con
 
 The resistor is the handshake. No chip needed for basic PD negotiation — just the right resistance on CC1, and the charger delivers the voltage you asked for.
 
-{/* TODO: add photos from Immich — laptop usbc mods folder */}
+![USB-C breakout board showing the CC pin resistor configuration](/images/blog/laptop-usbc-mods/IMG_7975_usbc_port.jpg)
+
+![Completed USB-C mod — charging port working](/images/blog/laptop-usbc-mods/IMG_1621_usbc_installed.jpg)

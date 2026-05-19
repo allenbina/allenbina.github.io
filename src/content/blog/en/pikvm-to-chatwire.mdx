@@ -15,12 +15,16 @@ The goal was simple: I wanted to control my iPad from my computer. Specifically,
 
 I worked out a few different solutions. The first was a tiny Pi Zero with an Arduino Pro Micro handling the USB HID emulation — keyboard and mouse input piped over the network to the Arduino, which pretended to be a physical keyboard plugged into the iPad. It worked, but the Pi Zero was slow and the video capture was rough.
 
+![First PiKVM build — Pi Zero with Arduino Pro Micro for HID](/images/blog/pikvm-to-chatwire/IMG_2862_pikvm_board.jpg)
+
 The second iteration used a Pi 3B with a Pi Pico for the HID side. Better video, lower latency, more stable. Both setups used PiKVM's software stack for the web interface and video streaming.
+
+![Second PiKVM iteration assembled and running](/images/blog/pikvm-to-chatwire/IMG_2897_pikvm_setup.jpg)
+
+![PiKVM setup on the desk controlling the iPad](/images/blog/pikvm-to-chatwire/IMG_3439_pikvm_desk.jpg)
 
 Both worked. But using them to text was painful. You're watching a livestream of your iPad screen, typing into a virtual keyboard, dealing with autocorrect you can't easily fix, and the latency makes every interaction feel sluggish. It was functional but frustrating.
 
 That frustration is what led directly to chatwire. Instead of trying to remote-control the device that has iMessage, why not just bridge iMessage itself? Read the messages database, relay through Telegram or a web UI, send replies through AppleScript. Cut out the middleman entirely.
 
 PiKVM solved the wrong problem really well. chatwire solved the right problem.
-
-{/* TODO: add photos from Immich — pikvm folder */}

@@ -15,11 +15,17 @@ This was a full end-to-end project. No kits, no shortcuts — just components, a
 
 I started with test wiring on breadboards using dupont cables. I'd never had to figure out wiring from scratch like this before — figuring out which pins go where, what needs pull-up resistors, what voltage each component expects. I learned as I went.
 
+![Early breadboard prototype with dupont cables everywhere](/images/blog/custom-thermostat/IMG_20200130_thermostat_early.jpg)
+
 Once the circuits were working on the breadboard, I moved them to perfboard and soldered everything in place. That transition from "it works with jumper wires" to "it works permanently" is its own skill. Solder bridges, cold joints, traces that look good but aren't connected — I hit all of them.
+
+![Breadboard layout before moving to perfboard](/images/blog/custom-thermostat/IMG_20200529_thermostat_breadboard.jpg)
 
 ## The OLED Screen
 
 Programming the OLED display was done with a single library and a lot of patience. Drawing text, formatting temperatures, updating the display without flickering. Not hard, just tedious.
+
+![OLED display showing temperature — first working version](/images/blog/custom-thermostat/IMG_20200509_thermostat_oled.jpg)
 
 ## Rotary Encoder Hell
 
@@ -39,6 +45,8 @@ Then I added MQTT — from scratch, no Tasmota, no ESPHome. Wired it into Home A
 
 Node-RED read from the MQTT topics and handled all the thermostat logic — comparing setpoint to actual temp, deciding when to fire the relay. The JavaScript Nest-style dial rendered in a separate browser window, which I then embedded into Home Assistant as an iframe. It worked. But it was fragile, hard to maintain, and Home Assistant's built-in thermostat entity was just better in every way.
 
+![Home Assistant thermostat dial — the Nest-style UI in the browser](/images/blog/custom-thermostat/Screenshot_20201218_thermostat_ha.jpg)
+
 ## The Tasmota Rewrite
 
 Later I redid the whole thing with Tasmota and some backend automations in Home Assistant. What took me weeks the first time took about a day. Tasmota handled the MQTT, the sensor reading, and the relay control. Home Assistant handled the UI and the logic. Done.
@@ -47,6 +55,6 @@ Later I redid the whole thing with Tasmota and some backend automations in Home 
 
 The dream was to get the rotary encoder working both locally and synced with Home Assistant — turn the knob on the wall and see the change on your phone, change the temp on your phone and see the display update on the wall. I got it mostly working, but honestly, using my phone was better in every way. Faster, more reliable, accessible from anywhere in the house.
 
-I built a thermostat to avoid using my phone. Then I used my phone anyway — the phone talks to Home Assistant, Home Assistant talks to the thermostat over WiFi via MQTT. The wall unit still works, but why walk to it when the same control is in your pocket?
+![The assembled thermostat unit mounted on the wall](/images/blog/custom-thermostat/IMG_20200521_thermostat_assembled.jpg)
 
-{/* TODO: add photos from Immich — thermostat folder */}
+I built a thermostat to avoid using my phone. Then I used my phone anyway — the phone talks to Home Assistant, Home Assistant talks to the thermostat over WiFi via MQTT. The wall unit still works, but why walk to it when the same control is in your pocket?

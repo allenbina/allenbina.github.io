@@ -15,8 +15,14 @@ So I asked her what the solution could be. She turned down a small piece of card
 
 I found one of those spinning platforms made for displaying jewelry, and that became the base. I reverse engineered the buttons and motor control, then shoved a NodeMCU inside it. Wired the whole thing up to Home Assistant so we could manually spin it any amount — 90 degrees, 180, whatever — from our phones.
 
+![The jewelry display spinner — base before modification](/images/blog/spinning-alarm-clock/IMG_5786_spinner_base.jpg)
+
+![NodeMCU wired into the spinner's control board](/images/blog/spinning-alarm-clock/IMG_5811_spinner_nodemcu.jpg)
+
 Then I set up automations: at 8:45 PM it rotates to face the wall. At 6:00 AM it spins back. Problem solved. No more getting out of bed.
+
+![Finished spinning alarm clock with the NodeMCU tucked inside](/images/blog/spinning-alarm-clock/IMG_5829_spinner_wiring.jpg)
 
 The best part was reverse engineering the display's control board. The buttons were just pulling GPIO pins low, so I tapped into those traces and let the NodeMCU trigger them programmatically. The motor had enough torque to stop at precise angles, which I honestly didn't expect from a $15 jewelry spinner.
 
-{/* TODO: add photos from Immich — spinning_table folder */}
+![The clock on the spinner, ready to face the wall on schedule](/images/blog/spinning-alarm-clock/IMG_5830_spinner_assembled.jpg)
