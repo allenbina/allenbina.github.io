@@ -1,0 +1,101 @@
+---
+title: "Do I Actually Need HA on My Home Cluster?"
+description: "After three WAL corruption incidents and one very educational apiserver panic, I'm rethinking whether three-node etcd is worth it for a homelab."
+publishedAt: 2026-05-19
+author: "Allen Bina"
+tags: ["homelab", "kubernetes", "k3s"]
+draft: true
+featured: false
+locale: en
+---
+
+I've been running a three-node k3s cluster for a while now — three thin clients, embedded etcd, Longhorn for distributed storage, ArgoCD for GitOps. About 30 services. The whole thing.
+
+The pitch for this setup is solid: if one node dies, the other two maintain quorum and the cluster keeps running. It's real high availability. No single point of failure.
+
+Except that's not quite what I've been experiencing.
+
+## What Actually Keeps Going Wrong
+
+Between April 11 and May 1 of this year, thinnode1 had four separate incidents that required some level of recovery. Different failure modes, same node, same short window:
+
+- April 11 and 13: quorum fragility — I/O stalls on one node triggering cascading restarts
+- April 14: a Pi 5 I'd added to the cluster ran into bbolt corruption because its SD card couldn't keep up with etcd write load. That node is gone now.
+- April 24: an upstream Go panic in the apiserver watch-progress code (`sync: unlock of unlocked mutex`) killed the k3s binary mid-WAL-write. etcd refused to replay. thinnode1 restarted 8,168 times in the next 20 hours.
+- April 27: another WAL CRC mismatch, different file, different offset. This one cleared on a plain reboot.
+- April 28–May 1: longhorn-manager hitting a fatal-on-conflict bug during startup, stacked on top of yet another WAL tear, and a plain reboot didn't hold this time.
+
+That last one ran for 62 hours before I noticed. Three of those recovery events happened within four days.
+
+## The April 24 Incident Specifically Changed My Thinking
+
+The April 24 panic was the one that reframed things for me. It wasn't an etcd problem per se — it was an upstream Go panic in the apiserver. In a normal Kubernetes setup, that's a non-event. The apiserver runs as its own pod, panics, restarts in 30 seconds, done. etcd is a separate process and doesn't care.
+
+In k3s, the apiserver, controller-manager, scheduler, kubelet, and embedded etcd all run in one Go binary. Any panic in any of those five components kills the whole thing, including etcd mid-write. That's what tore the WAL.
+
+This is a deliberate k3s architectural choice — the single-binary approach is why k3s is lightweight and easy to install. But it means k3s amplifies the blast radius of bugs in any of its bundled components. A Go panic that would be a 30-second blip on vanilla Kubernetes became a full day of recovery work.
+
+And thinnode1 specifically keeps being the victim. It's the box with the lowest RAM, highest fsync contention (etcd sharing NVMe with Longhorn), and 37 unsafe shutdowns out of 142 power cycles from a flaky power strip I've since removed. When a race condition or concurrent-write bug fires under load, it fires here first.
+
+## What HA Was Supposed to Help With
+
+The whole point of three-node etcd is fault tolerance. If one node goes down, the other two maintain quorum and the cluster keeps running. Services on the healthy nodes keep serving. You recover the bad node at your leisure.
+
+That part actually works. During the April 24 incident, thinnode2 and thinnode3 held quorum the entire time. The cluster was technically serving. It just had one node restarting every 8 seconds and ~22 cascading alerts.
+
+But HA doesn't help with the failure class I'm actually hitting. The k3s single-binary architecture means etcd can get torn by a panic in any bundled component, even when the other two nodes are fine. And recovering from WAL corruption on the third node of a three-node cluster is worse than recovering from it on a single-node cluster — you can't use a peer to reconstruct state, you're restoring from a 12-hour-old snapshot.
+
+The HA is buying me something, but it's not buying me protection from my actual failure modes.
+
+## The Two Paths
+
+I've been thinking about this in terms of two realistic options.
+
+**Path A — stay HA, harden etcd:**
+
+The conventional advice here is to give etcd a dedicated disk on each control-plane node, removing the fsync contention with Longhorn. Add an automated watchdog that detects and recovers from single-member failures without manual intervention. Keep three voters, keep the quorum protection.
+
+This is the "fix etcd in place" approach. It addresses the fsync contention class and reduces recovery time. It doesn't address the panic-corrupts-WAL class, because that's architectural — the same k3s binary with the same embedded etcd, just on a faster disk.
+
+**Path B — single control plane with SQLite:**
+
+k3s supports SQLite as a backend, and for small clusters it's the default. The setup would be: thinnode3 runs as the k3s server with SQLite, thinnode1 and thinnode2 run as agents pointing at it. All three nodes still host pods — compute capacity stays the same. There's just no etcd anywhere.
+
+SQLite doesn't have WAL corruption from Go panics. If thinnode3's k3s process panics, SQLite gets a clean shutdown or at worst a dirty close, and it recovers cleanly on restart. If thinnode3 goes down entirely, workloads on the agents keep running per their cached state — nothing new schedules until thinnode3 comes back, but Plex doesn't stop, AdGuard doesn't stop, the Telegram bot doesn't stop.
+
+The cost is control-plane high availability. One node is the single point of failure for scheduling. If you need true HA — a guarantee that new pods can be scheduled even when any one node is down — Path B doesn't provide it.
+
+## Cost/Benefit Comparison
+
+| Factor | Path A (Stay HA) | Path B (SQLite) |
+|--------|-----------------|-----------------|
+| etcd WAL corruption risk | Reduced (dedicated disk), not eliminated | Eliminated |
+| Panic-corrupts-datastore risk | Unchanged | Eliminated |
+| Quorum fault tolerance | Survives one node loss for scheduling | No — one node down = no new scheduling |
+| Running workloads during outage | Unaffected across surviving nodes | Agents keep running per kubelet cache |
+| Recovery complexity | Single-member recovery playbook, 1-2 hours | SQLite restore or node reboot, 15-30 min |
+| Maintenance surface | 3 control-plane nodes | 1 control plane, 2 agents |
+| RAM upgrade dependency | Would help but rejected (DDR4 cost) | Less pressure — SQLite is lighter |
+| Migration effort | Moderate — etcd disk migration, watchdog | Moderate — member demote + datastore swap |
+
+## Where I'm Leaning
+
+Path B. And not reluctantly — I think it's actually the right call for this specific setup.
+
+The thing HA is supposed to protect against is a node failure taking down the cluster. But my cluster has 30 services, not 300. When something goes down, I notice within minutes. The "control plane is unavailable" window before I can SSH in and restart k3s on thinnode3 is measured in minutes, not hours. My workloads keep running on the agents during that window. The actual impact is lower than it looks on paper.
+
+What Path A protects is the scheduling layer — new pods can still be placed during a control-plane-node outage. For my workload mix, that's rarely critical. Things like Longhorn replica rebalancing and ArgoCD sync operations can wait for the control plane to come back.
+
+What Path B eliminates is the class of failure I've actually had four times in a month. That's a real trade I'd take.
+
+I'm not doing the migration until the current plinux data consolidation work finishes and I've verified Velero backups are clean. But when that's done, Path B is the plan.
+
+## The Broader Lesson
+
+Running HA k3s on thin-client hardware with a watch-heavy workload mix and shared NVMe storage is an unhappy path. Most people who run k3s at home run single-node with SQLite — it's actually the default. I went multi-node because I wanted the learning experience of running a real HA cluster, and I definitely got that. But the gap between "architecturally HA" and "operationally stable" is larger than I expected.
+
+If I were starting over, I'd run single-node + SQLite on the beefiest node I had, use the other nodes as agents for compute capacity, and add HA if I hit a specific operational need for it. Not as the starting point.
+
+I still think the learning was worth it. I understand etcd, quorum, WAL recovery, and the k3s single-binary tradeoffs in a way I wouldn't if I'd just run the single-node default. Every incident was educational. But "educational" and "good architecture for my actual requirements" are different things.
+
+{/* TODO: add photos from Immich — thinnode rack, cluster diagram */}
